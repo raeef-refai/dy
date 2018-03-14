@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SearchInput = ({ value, onChange }) => (
-  <form className={'searchForm'}>
+  <form className="searchForm" onSubmit={evt => evt.preventDefault()}>
     <div className="input-group">
       <div className="input-wrapper">
         <input
@@ -21,7 +21,7 @@ const SearchInput = ({ value, onChange }) => (
           onChange={onChange} />
       </div>
       <div className="input-group-append">
-        <button className="btn" type={'button'} aria-label="Search">
+        <button className="btn" type="button" aria-label="Search">
           <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false"
             className="search-icon">
             <g>
