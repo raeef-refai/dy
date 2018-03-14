@@ -18,10 +18,28 @@ class Search extends Component {
 
     this.search = debounce(this.search, 500);
     this.searchInputChangeHandler = this.searchInputChangeHandler.bind(this);
+    this.onEscKeyHandler = this.onEscKeyHandler.bind(this);
+    this.onModalClose = this.onModalClose.bind(this);
+  }
+
+  onModalClose() {
+    this.props.history.push('/search')
+  }
+
+  onEscKeyHandler(event) {
+    if (event.keyCode === 27) {
+      this.onModalClose();
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.onEscKeyHandler, false);
   }
 
   componentDidMount() {
     this.props.searchVideos('');
+
+    document.addEventListener("keydown", this.onEscKeyHandler, false);
   }
 
   search(query) {
@@ -40,35 +58,44 @@ class Search extends Component {
     const { videos, searchingVideos, playingVideo: ppv } = this.props;
     const { query, playingVideo: spv } = this.state;
 
-
     return (
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col-md-6 offset-md-3">
-            <SearchInput value={query} onChange={this.searchInputChangeHandler} />
-          </div>
-        </div>
-        <div className="row mt-4">
-          <div className="col">
-            {
-              !searchingVideos && (
-                !!videos.length ?
-                  <VideoList videos={videos} /> :
-                  <p className="text-danger text-center mt-4">No search results!</p>
-              )
-            }
-            {
-              searchingVideos && <p className="text-center mt-4">
-                <i className="fa fa-spinner fa-spin"></i>
-              </p>
-            }
-          </div>
-          {
-            (!!ppv || !!spv) && <div className="col">
-              <YouTubeIFrame id={ppv || spv} />
+      <div>
+        <div className="heading">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+                <SearchInput value={query} onChange={this.searchInputChangeHandler} />
+              </div>
             </div>
-          }
+          </div>
         </div>
+        <div className="container content">
+          <div className="row">
+            <div className="col-md-12">
+              {
+                !searchingVideos && (
+                  !!videos.length ?
+                    <VideoList videos={videos} /> :
+                    <p className="text-danger text-center mt-4">No search results!</p>
+                )
+              }
+              {
+                searchingVideos && <p className="text-center mt-4">
+                  <i className="fa fa-spinner fa-spin"></i>
+                </p>
+              }
+            </div>
+          </div>
+        </div>
+        {
+          (!!ppv || !!spv) && (
+            <div className="video-frame" onClick={this.onModalClose}>
+              <div className="backdrop">
+                <YouTubeIFrame id={ppv || spv} />
+              </div>
+            </div>
+          )
+        }
       </div>
     )
   }

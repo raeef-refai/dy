@@ -9,13 +9,18 @@ const VideoListItem = ({ video, onSelect }) => {
 
   return (
     <li key={videoId} className="mb-2">
-      <img
-        src={thumbUrl}
-        alt={title} />
-
-      <Link className="d-inline-block ml-3" style={{ width: 'calc(100% - 120px - 1rem)' }} to={`/search?play=${videoId}`}>
-        {title}
-      </Link>
+      <div className="thumbnail-wrapper">
+        <div className="thumbnail">
+          <img
+            src={thumbUrl}
+            alt={title} />
+        </div>
+      </div>
+      <h3>
+        <Link to={`/search?play=${videoId}`}>
+          {title}
+        </Link>
+      </h3>
     </li>
   );
 };

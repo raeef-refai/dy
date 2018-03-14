@@ -1,0 +1,233 @@
+html, body {
+    font-size: 10px;
+    font-family: Roboto, Arial, sans-serif;
+    background-color: #fafafa;
+    min-height: 100vh;
+}
+
+.searchForm {
+    margin-right: 4px;
+}
+
+.searchForm .input-wrapper {
+    align-items: center;
+    background-clip: border-box;
+    background: #ffffff none scroll;
+    background-origin: padding-box;
+    background-size: auto;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-radius: 2px 0 0 2px;
+    border: 1px solid #cccccc;
+    border-right: 0 none rgba(17, 17, 17, 0.4);
+    box-shadow: #eeeeee 0 1px 2px 0 inset;
+    color: rgba(17, 17, 17, 0.4);
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 10px;
+    padding: 2px 6px;
+}
+
+.searchForm input {
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    color: #000000;
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    height: 24px;
+    line-height: 2.4rem;
+    margin-left: 4px;
+    max-width: 100%;
+    text-align: inherit;
+    width: 100%;
+    flex: 1;
+}
+
+.searchForm input, .searchForm input:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.searchForm svg {
+    pointer-events: none;
+    display: block;
+    width: 24px;
+    height: 24px;
+    opacity: 0.6;
+}
+
+.searchForm svg g {
+    fill: #333333;
+    color: #333333;
+}
+
+.searchForm button {
+    justify-content: center;
+    display: flex;
+    -webkit-appearance: none;
+    background-color: #f8f8f8;
+    border-radius: 0 2px 2px 0;
+    border: 1px solid #d3d3d3;
+    font-size: 1.1rem;
+    height: 3rem;
+    line-height: 1.3rem;
+    padding: 2px 6px 3px;
+    text-align: center;
+    text-indent: 0;
+    width: 6.5rem;
+}
+
+.searchForm button:hover {
+    border-color: #c6c6c6;
+    background-color: #f0f0f0;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    margin-top: 5.6rem;
+    padding-top: 5rem;
+}
+
+.video-frame {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2050;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-frame:after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.video-frame .backdrop {
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2060;
+}
+
+.heading {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2020;
+    height: 5.6rem;
+    background-color: #ffffff;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.heading:after {
+    bottom: -5px;
+    box-shadow: inset 0 4px 8px -3px rgba(17, 17, 17, 0.06);
+    content: "";
+    height: 5px;
+    left: 0;
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    width: 100%;
+    z-index: 2050;
+}
+
+.video-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.video-list li {
+    width: calc((100% * 1 / 2) - 4px);
+    margin-right: 4px;
+    display: inline-block;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+    .video-list li {
+        width: calc((100% * 1 / 3) - 4px);
+    }
+}
+
+@media (min-width: 992px) {
+    .video-list li {
+        width: calc((100% * 1 / 4) - 4px);
+    }
+}
+
+@media (min-width: 1200px) {
+    .video-list li {
+        width: calc((100% * 1 / 5) - 4px);
+    }
+}
+
+.video-list h3 {
+    margin: 8px 0 8px;
+}
+
+.video-list h3 a {
+    max-height: 3.2rem;
+    overflow: hidden;
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.6rem;
+    color: #000000;
+}
+
+.video-list h3 a:hover {
+    text-decoration: none;
+}
+
+.thumbnail-wrapper {
+    height: 120px;
+}
+
+.thumbnail-wrapper .thumbnail {
+    height: 100%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    display: block;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.thumbnail-wrapper .thumbnail img {
+    display: block;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 0;
+    width: 100%;
+}
