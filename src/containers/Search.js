@@ -16,13 +16,20 @@ class Search extends Component {
       playingVideo: queryString.parse(this.props.location.search).play,
     };
 
-    this.search = debounce(this.search.bind(this), 500);
+    this.search = debounce(this.search, 500);
+    this.searchInputChangeHandler = this.searchInputChangeHandler.bind(this);
   }
 
   search(query) {
+    this.props.searchVideos(query);
+  }
+
+  searchInputChangeHandler(evt) {
+    const query = evt.target.value;
+
     this.setState({ query });
 
-    this.props.searchVideos(query);
+    this.search(query);
   }
 
   render() {
@@ -34,7 +41,7 @@ class Search extends Component {
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6 offset-md-3">
-            <SearchInput value={query} onChange={this.search} />
+            <SearchInput value={query} onChange={this.searchInputChangeHandler} />
           </div>
         </div>
         <div className="row mt-4">

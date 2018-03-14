@@ -5,7 +5,7 @@ const SearchInput = ({ value, onChange }) => (
     className="form-control"
     value={value}
     placeholder="Search in YouTube videos..."
-    onChange={evt => onChange(evt.target.value)} />
+    onChange={onChange} />
 );
 
 export default SearchInput;
