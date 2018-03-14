@@ -1,60 +1,75 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { searchVideos } from '../redux/modules/videos';
+import SearchInput from '../components/SearchInput';
+import VideoList from '../components/VideoList';
+import YouTubeIFrame from '../components/YouTubeIFrame';
+import queryString from 'query-string';
+import { debounce } from 'lodash';
 
 class Search extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      query: '',
+      playingVideo: queryString.parse(this.props.location.search).play,
+    };
+
+    this.search = debounce(this.search.bind(this), 500);
   }
 
-  componentDidMount() {
-    this.props.searchVideos('i love like a love song selena gomez');
-  }
+  search(query) {
+    this.setState({ query });
 
-  selectVideo(evt, id) {
-    evt.preventDefault();
-
-    this.setState({ selectedVideo: id });
+    this.props.searchVideos(query);
   }
 
   render() {
-    const { videos } = this.props;
-    const { selectedVideo } = this.state;
+    const { videos, searchingVideos, playingVideo: ppv } = this.props;
+    const { query, playingVideo: spv } = this.state;
+
 
     return (
-      <div>
-        <ul>
-          {videos.map(video => (
-            <li key={video.id.videoId}>
-              <img
-                src={video.snippet.thumbnails.default.url}
-                alt={video.snippet.title} />
-
-              <a
-                href={`https://youtube.com/watch?v=${video.id.videoId}`}
-                target="_blank" onClick={(evt) => this.selectVideo(evt, video.id.videoId)}>
-                {video.snippet.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-        {selectedVideo && <iframe
-          title="YouTube Player"
-          width="560"
-          height="315"
-          src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
-          frameBorder="0"
-          allowFullScreen>
-        </iframe>}
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-md-6 offset-md-3">
+            <SearchInput value={query} onChange={this.search} />
+          </div>
+        </div>
+        <div className="row mt-4">
+          <div className="col">
+            {
+              !searchingVideos && (
+                !!videos.length ?
+                  <VideoList videos={videos} /> :
+                  <p className="text-danger text-center mt-4">No search results!</p>
+              )
+            }
+            {
+              searchingVideos && <p className="text-center mt-4">
+                <i className="fa fa-spinner fa-spin"></i>
+              </p>
+            }
+          </div>
+          {
+            (!!ppv || !!spv) && <div className="col">
+              <YouTubeIFrame id={ppv || spv} />
+            </div>
+          }
+        </div>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ videos }) => ({
-  videos: videos.videos,
+const mapStateToProps = ({
+  videos: { videos, searchingVideos },
+  routing: { locationBeforeTransitions: loc },
+}) => ({
+  videos,
+  searchingVideos: searchingVideos,
+  playingVideo: loc ? queryString.parse(loc.search).play : '',
 });
 
 const mapDispatchToProps = { searchVideos };
