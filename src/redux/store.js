@@ -6,7 +6,13 @@ import axios from 'axios';
 
 const middlewares = [clientMiddleware(axios), thunk];
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+let composeEnhancers;
+
+if (process.env.NODE_ENV === 'production') {
+  composeEnhancers = compose;
+} else {
+  composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+}
 
 const store = createStore(
   rootReducer,

@@ -10,7 +10,7 @@ class Search extends Component {
   }
 
   componentDidMount() {
-    this.props.searchVideos('عمر عبد الكافي');
+    this.props.searchVideos('i love like a love song selena gomez');
   }
 
   selectVideo(evt, id) {
