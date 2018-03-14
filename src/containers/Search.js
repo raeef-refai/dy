@@ -20,6 +20,10 @@ class Search extends Component {
     this.searchInputChangeHandler = this.searchInputChangeHandler.bind(this);
   }
 
+  componentDidMount() {
+    this.props.searchVideos('');
+  }
+
   search(query) {
     this.props.searchVideos(query);
   }
