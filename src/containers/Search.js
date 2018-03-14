@@ -23,7 +23,9 @@ class Search extends Component {
   }
 
   onModalClose() {
-    this.props.history.push('/search')
+    this.setState({ playingVideo: '' });
+
+    this.props.history.push('/search');
   }
 
   onEscKeyHandler(event) {
